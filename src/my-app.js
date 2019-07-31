@@ -1,4 +1,4 @@
-import { helloWorld } from "@app/a-module.js";
-import "@app/sub/b-module.js";
+import { helloWorld } from "@app/a-module";
+import "@app/sub/b-module";
 
 helloWorld();
