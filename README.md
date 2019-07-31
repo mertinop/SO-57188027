@@ -1,0 +1,2 @@
+Just run `npm start` - it transpiles sources with `babel-plugin-module-resolver` and then executes `my-app.js` in dist/ to prove it works.
+> Note: Node 8.5.0+ (with ES modules support to make it simple here) in PATH presumed.
