@@ -1,34 +1,28 @@
+const pathMapping = require("./jscodeshift-input");
+const replacePathAlias = require("./replace-path-alias");
+
 module.exports = function transform(file, api) {
   const j = api.jscodeshift;
-  return j(file.source)
-    .find(j.ImportDeclaration)
-    .forEach(path => {
-      path.value.source.value = replaceImportPathAlias(
-        path.value.source.value,
-        pathMapping
-      );
-    })
-    .toSource();
-};
+  const root = j(file.source);
 
-// corresponds to tsconfig.json paths or webpack aliases
-// e.g. "@/app/store/AppStoreImpl" -> "./custom/app/path/app/store/AppStoreImpl"
-const pathMapping = {
-  "@": "./custom/app/path",
-  fodddo: "bar"
-};
+  root.find(j.ImportDeclaration).forEach(replaceNodepathAliases);
+  root.find(j.ExportAllDeclaration).forEach(replaceNodepathAliases);
 
-function replaceImportPathAlias(importDeclarationSource, pathMap) {
-  const regex = createRegex(pathMap);
-  return importDeclarationSource.replace(regex, replacer);
+  /**
+   * Filter out normal module exports, like export function foo(){ ...}
+   * Include export {a} from "mymodule" etc.
+   */
+  root
+    .find(j.ExportNamedDeclaration, node => node.source !== null)
+    .forEach(replaceNodepathAliases);
 
-  function replacer(match, g1, g2) {
-    return pathMap[g1] + g2;
+  return root.toSource();
+
+  function replaceNodepathAliases(impExpDeclNodePath) {
+    impExpDeclNodePath.value.source.value = replacePathAlias(
+      file.path,
+      impExpDeclNodePath.value.source.value,
+      pathMapping
+    );
   }
-}
-
-function createRegex(pathMap) {
-  const mapKeysStr = Object.keys(pathMap).reduce((acc, cur) => `${acc}|${cur}`);
-  const regexStr = `^(${mapKeysStr})(.*)$`;
-  return new RegExp(regexStr, "g");
-}
+};
