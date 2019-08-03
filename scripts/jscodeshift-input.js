@@ -1,6 +1,6 @@
 /**
  * Corresponds to tsconfig.json paths or webpack aliases
- * E.g. "@/app/store/AppStoreImpl" -> "./custom/app/path/app/store/AppStoreImpl"
+ * E.g. "@/app/store/AppStore" -> "./src/app/store/AppStore"
  */
 const pathMapping = {
   "@": "./src",
