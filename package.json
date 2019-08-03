@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node --experimental-modules dist/my-app.js",
-    "build": "babel src --out-dir dist",
+    "babelresolve": "babel src --out-dir dist && node --experimental-modules --es-module-specifier-resolution=node dist/index.js",
     "jscodeshift": "jscodeshift -t scripts/jscodeshift.js src -d -p"
   },
   "keywords": [],

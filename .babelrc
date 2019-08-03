@@ -4,7 +4,7 @@
       "module-resolver",
       {
         "alias": {
-          "^@app/(.+)": "./src/\\1"
+          "^@/(.+)": "./src/\\1"
         }
       }
     ]
