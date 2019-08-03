@@ -7,8 +7,8 @@ function replacePathAlias(currentFilePath, importPath, pathMap) {
   const regex = createRegex(pathMap);
   return importPath.replace(regex, replacer);
 
-  function replacer(_, alias) {
-    const mappedImportPath = importPath.replace(alias, pathMap[alias]);
+  function replacer(_, alias, rest) {
+    const mappedImportPath = pathMap[alias] + rest;
 
     // use path.posix to also create foward slashes on windows environment
     let mappedImportPathRelative = path.posix.relative(
