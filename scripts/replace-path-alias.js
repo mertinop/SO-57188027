@@ -1,6 +1,9 @@
 const path = require("path");
 
 function replacePathAlias(currentFilePath, importPath, pathMap) {
+  // if windows env, convert backslashes to "/" first
+  currentFilePath = currentFilePath.split(path.sep).join("/");
+
   const regex = createRegex(pathMap);
   return importPath.replace(regex, replacer);
 

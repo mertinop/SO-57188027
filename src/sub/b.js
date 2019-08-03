@@ -1,3 +1,3 @@
-// test ImportDeclaration of parent folder: "../src/c"
+// test ImportDeclaration of parent folder: "../c"
 import { helloWorld } from "@/c";
 
