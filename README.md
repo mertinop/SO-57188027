@@ -20,6 +20,13 @@
 
 > Caution: Without `-d` flag, files in src are mutated in place.
 
+If you want to run it for TypeScript, you can add the `--extensions=ts,tsx` and `--parser=tsx` flags.
+```
+ "scripts": {
+    "jscodeshift": "jscodeshift -t scripts/jscodeshift.js src -p --extensions=ts,tsx --parser=tsx"
+  },
+```
+
 ### Solution with RegEx only
 
 [Related Gist](https://gist.github.com/ford04/fe78dd3bb4eef029a9ac81f2d7f71ef4)
